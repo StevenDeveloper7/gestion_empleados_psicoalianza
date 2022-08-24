@@ -14,7 +14,10 @@ class EmpleadoController extends Controller
      */
     public function index()
     {
-        //
+        $empleados = Empleado::join('ciudads', 'ciudads.id', '=', 'empleados.id_ciudad')
+                    ->select("empleados.*","ciudads.nombre_ciudad")
+                    ->paginate(10);
+        return view('empleado.index')->with('empleados', $empleados);
     }
 
     /**
