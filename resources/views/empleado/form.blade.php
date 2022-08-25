@@ -40,6 +40,9 @@
             <div class="col-md-4">
                 <label for="apellido" class="form-label">Apellidos</label>
                 <input type="text" name="apellido" class="form-control" value="{{ old('apellido') ?? @$empleado->apellido }}">
+                @error('apellido')
+                <p class="form-text text-danger"> {{ $message }} </p>
+                @enderror
             </div>
            
         </div>
@@ -66,6 +69,9 @@
                     @endforeach
                   </select>
             </div>
+            @error('id_ciudad')
+                <p class="form-text text-danger"> {{ $message }} </p>
+                @enderror
             <div class="col-md-3">
                 <label for="id_cargo" class="form-label">Cargo</label>
                 <select multiple class="form-select"  name="id_cargo[]" aria-label="Default select example">

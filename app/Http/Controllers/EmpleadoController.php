@@ -50,7 +50,14 @@ class EmpleadoController extends Controller
      */
     public function store(Request $request)
     {
-       
+        $request->validate([
+            'identificacion' => 'required|max:15|integer',
+            'nombre' => 'required|max:40',
+            'apellido' => 'required|max:40',
+            'direccion' => 'required|max:50',
+            'telefono' => 'required|max:12|integer',
+            'id_ciudad' => 'required'
+        ]);
 
         $empleado = Empleado::create($request->only('identificacion','nombre', 'apellido', 'direccion', 'telefono', 'id_ciudad'));
         
@@ -109,8 +116,12 @@ class EmpleadoController extends Controller
     public function update(Request $request, Empleado $empleado)
     {
         $request->validate([
-            'nombre' => 'required|max:30',
-            'telefono' => 'required|max:12'
+            'identificacion' => 'required|max:15|integer',
+            'nombre' => 'required|max:40',
+            'apellido' => 'required|max:40',
+            'direccion' => 'required|max:50',
+            'telefono' => 'required|max:12|integer',
+            'id_ciudad' => 'required'
         ]);
 
         $empleado->identificacion = $request['identificacion'];

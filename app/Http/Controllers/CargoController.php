@@ -41,6 +41,7 @@ class CargoController extends Controller
     {
         $request->validate([
             'nombre_c' => 'required|max:30',
+            'descripcion_c' => 'required|max:120'
         ]);
     
         $cargo = Cargo::create($request->only('nombre_c','descripcion_c'));
@@ -83,7 +84,7 @@ class CargoController extends Controller
     {
         $request->validate([
             'nombre_c' => 'required|max:30',
-            'descripcion_c' => 'required|max:100',
+            'descripcion_c' => 'required|max:70'
         ]);
         $cargo->nombre_c = $request['nombre_c'];
         $cargo->descripcion_c = $request['descripcion_c'];

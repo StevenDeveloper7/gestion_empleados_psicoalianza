@@ -16,7 +16,7 @@ class CreateCargosTable extends Migration
         Schema::create('cargos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre_c', 30);
-            $table->string('descripcion_c', 70);
+            $table->string('descripcion_c', 130);
             $table->timestamps();
         });
     }
