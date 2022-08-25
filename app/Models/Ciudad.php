@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Ciudad extends Model
 {
     use HasFactory;
+
+    public function rel_empleado()
+    {
+        return $this->belongsTo('App\Models\Empleado');
+    }
 }

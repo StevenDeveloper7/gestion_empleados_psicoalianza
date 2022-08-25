@@ -9,4 +9,9 @@ class Cargo extends Model
 {
     use HasFactory;
     protected $fillable = ['nombre_c', 'descripcion_c'];
+
+    public function rel_empleado()
+    {
+        return $this->belongsToMany('App\Models\Empleado');
+    }
 }
