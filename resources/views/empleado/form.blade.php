@@ -61,17 +61,40 @@
                     <p class="form-text text-danger"> {{ $message }} </p>
                     @enderror
             </div>
-            <div class="col-md-3">
-                <label for="id_ciudad" class="form-label">Ciudad de nacimiento</label>
-                <select class="form-select" name="id_ciudad" aria-label="Default select example">
-                    @foreach($ciudades as $ciudad)
-                    <option value=" {{$ciudad->id}} "> {{$ciudad->nombre_ciudad}} </option>
-                    @endforeach
-                  </select>
+            <div class="col-md-6">
+                <div class="row">
+                <label for="id_pais" class="form-label">Lugar de nacimiento</label>
+                <div class="col-md-6">
+                    <select id="select-pais" class="form-select" name="id_pais" aria-label="Default select example">
+                        <option value=" - "> Seleccione Pais </option>
+                        @foreach($paises as $pais)
+                        <option value=" {{$pais->id}} "> {{$pais->nombre_pais}} </option>
+                        @endforeach
+                      </select>
+                </div>
+                <div class="col-md-6">
+                    <select id="select-ciudad" class="form-select" name="id_ciudad" aria-label="Default select example">
+                        <option value=" - "> Seleccione ciudad </option>
+                      </select>
+                </div>
+            </div>
             </div>
             @error('id_ciudad')
                 <p class="form-text text-danger"> {{ $message }} </p>
                 @enderror
+            
+           
+        </div>
+        <div class="row">
+            
+            <div class="col-md-6">
+                <label for="id_cargo" class="form-label">Jefe Inmediato</label>
+                <select  class="form-select" name="id_jefe" aria-label="Default select example">
+                    @foreach($jefes as $jefe)
+                    <option value=" {{$jefe->id}} "> {{$jefe->nombre}} {{$jefe->apellido}}-{{$jefe->nombre_c}} </option>
+                    @endforeach
+                  </select>
+            </div>
             <div class="col-md-3">
                 <label for="id_cargo" class="form-label">Cargo</label>
                 <select multiple class="form-select"  name="id_cargo[]" aria-label="Default select example">
@@ -80,18 +103,6 @@
                     @endforeach
                   </select>
             </div>
-           
-        </div>
-        <div class="row">
-            <div class="col-md-5">
-                <label for="id_cargo" class="form-label">Jefe Inmediato</label>
-                <select  class="form-select" name="id_jefe" aria-label="Default select example">
-                    @foreach($jefes as $jefe)
-                    <option value=" {{$jefe->id}} "> {{$jefe->nombre}} {{$jefe->apellido}}-{{$jefe->nombre_c}} </option>
-                    @endforeach
-                  </select>
-            </div>
-           
         </div>
         
         
@@ -102,7 +113,7 @@
         </div>  
          @else
         <div class="mb-3">
-        <button class="btn btn-primary" type="submit">Guardar datos del Empleado</button>
+        <button class="btn btn-primary form-control" type="submit">Guardar datos del Empleado</button>
         @endif
 
     </div>  
@@ -111,4 +122,7 @@
     </form>
    
 </div>
+
+<script src=""></script>
+
 @endsection

@@ -6,6 +6,7 @@ use App\Models\Empleado;
 use App\Models\Ciudad;
 use App\Models\Cargo;
 use App\Models\AsignacionCargo;
+use App\Models\Pais;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -37,9 +38,10 @@ class EmpleadoController extends Controller
         ->select("empleados.*","cargos.nombre_c","asignacion_cargos.id_cargo")
         ->where("asignacion_cargos.id_cargo", "!=", 1)
         ->paginate(10);
+        $paises = Pais::all();
         $ciudades = Ciudad::all();
         $cargos = Cargo::all();
-        return view('empleado.form')->with('cargos', $cargos)->with('ciudades', $ciudades)->with('jefes', $jefes);
+        return view('empleado.form')->with('cargos', $cargos)->with('ciudades', $ciudades)->with('jefes', $jefes)->with('paises', $paises);
     }
 
     /**
