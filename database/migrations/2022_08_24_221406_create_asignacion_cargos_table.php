@@ -17,8 +17,10 @@ class CreateAsignacionCargosTable extends Migration
             $table->id();
             $table->unsignedBigInteger('id_empleado');
             $table->unsignedBigInteger('id_cargo');
+            $table->unsignedBigInteger('id_jefe')->nullable();
             $table->foreign('id_empleado')->references('id')->on('empleados');
             $table->foreign('id_cargo')->references('id')->on('cargos');
+            $table->foreign('id_jefe')->references('id')->on('empleados');
             $table->timestamps();
         });
     }

@@ -68,7 +68,7 @@
             </div>
             <div class="col-md-3">
                 <label for="id_cargo" class="form-label">Cargo</label>
-                <select class="form-select" name="id_cargo" aria-label="Default select example">
+                <select multiple class="form-select"  name="id_cargo[]" aria-label="Default select example">
                     @foreach($cargos as $cargo)
                     <option value=" {{$cargo->id}} "> {{$cargo->nombre_c}} </option>
                     @endforeach
@@ -76,6 +76,18 @@
             </div>
            
         </div>
+        <div class="row">
+            <div class="col-md-5">
+                <label for="id_cargo" class="form-label">Jefe Inmediato</label>
+                <select  class="form-select" name="id_jefe" aria-label="Default select example">
+                    @foreach($jefes as $jefe)
+                    <option value=" {{$jefe->id}} "> {{$jefe->nombre}} {{$jefe->apellido}}-{{$jefe->nombre_c}} </option>
+                    @endforeach
+                  </select>
+            </div>
+           
+        </div>
+        
         
         <br>
         @if (isset($empleado))

@@ -32,9 +32,14 @@ class EmpleadoController extends Controller
      */
     public function create()
     {
+        $jefes = Empleado::join('asignacion_cargos', 'asignacion_cargos.id_empleado', '=', 'empleados.id')
+        ->join('cargos', 'cargos.id', '=', 'asignacion_cargos.id_cargo')
+        ->select("empleados.*","cargos.nombre_c","asignacion_cargos.id_cargo")
+        ->where("asignacion_cargos.id_cargo", "!=", 1)
+        ->paginate(10);
         $ciudades = Ciudad::all();
         $cargos = Cargo::all();
-        return view('empleado.form')->with('cargos', $cargos)->with('ciudades', $ciudades);
+        return view('empleado.form')->with('cargos', $cargos)->with('ciudades', $ciudades)->with('jefes', $jefes);
     }
 
     /**
@@ -45,14 +50,24 @@ class EmpleadoController extends Controller
      */
     public function store(Request $request)
     {
+       
+
         $empleado = Empleado::create($request->only('identificacion','nombre', 'apellido', 'direccion', 'telefono', 'id_ciudad'));
         
         $ultimo_empleado = Empleado::select('id')->orderBy('id', 'desc')->first();
         $id_empleado = $ultimo_empleado -> id;
-        $asignacion = new AsignacionCargo();
-        $asignacion->id_empleado = $id_empleado;
-        $asignacion->id_cargo = $request->id_cargo;
-        $asignacion->save();
+
+        $cargo = $request->id_cargo;
+        $x = count($cargo);
+
+        for ($i=0; $i < $x ; $i++) { 
+            $asignacion = new AsignacionCargo();
+            $asignacion->id_empleado = $id_empleado;
+            $asignacion->id_cargo = $cargo[$i];
+            $asignacion->id_jefe = $request->id_jefe;
+            $asignacion->save();
+        }
+       
 
         
         Session::flash('mensaje', 'Empleado Registrado con exito');
@@ -120,7 +135,7 @@ class EmpleadoController extends Controller
     public function destroy(Empleado $empleado)
     {
         $empleado->delete();
-        Session::flash('mensaje', 'Empleado Actualizado con exito');
+        Session::flash('mensaje', 'Empleado Eliminado con exito');
         return redirect()->route('empleado.index');
     }
 }
