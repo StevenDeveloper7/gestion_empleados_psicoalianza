@@ -20,25 +20,25 @@
 <div class="table-responsive">
     <table class="table table-bordered">
         <thead class="bg-primary text-white">
-            <th>ID</th>
             <th>Identificacion</th>
             <th>Nombres</th>
             <th>Apellidos</th>
             <th>Direccion</th>
             <th>Telefono</th>
             <th>Ciudad</th>
+            <th>Cargo</th>
             <th>Acciones</th>
         </thead>
         <tbody>
             @foreach ($empleados as $empleado)
             <tr>
-                <td>{{$empleado->id}}</td>
                 <td>{{$empleado->identificacion}}</td>
                 <td>{{$empleado->nombre}}</td>
                 <td>{{$empleado->apellido}}</td>
                 <td>{{$empleado->direccion}}</td>
                 <td>{{$empleado->telefono}}</td>
                 <td>{{$empleado->nombre_ciudad}}</td>
+                <td>{{$empleado->nombre_c}}</td>
                 <td>
                     <a class="btn btn-success" href="{{ route('empleado.edit', $empleado)}}">Editar</a>
                     <form action="{{ route('empleado.destroy', $empleado) }}" method="post" class="d-inline">

@@ -2,9 +2,11 @@
 @section('content')
 <div class="container py-5">
     @if (isset($empleado))
-    <h1 class="text-center">
-        Editar empleado
-    </h1>  
+    <div class="card">
+        <div class="card-header">
+           <h3 class="text-center">Formulario de Actualizacion de Informacion de empleado</h3> 
+        </div>
+    </div> 
     @else
     <div class="card">
         <div class="card-header">
@@ -103,13 +105,17 @@
                     @endforeach
                   </select>
             </div>
+            <div class="col-md-3">
+                <br>
+                <p>Para seleccionar varios cargos tenga presionada la tecla ctrl y selecciones los que considere necesarios</p>
+            </div>
         </div>
         
         
         <br>
         @if (isset($empleado))
         <div class="mb-3">
-        <button class="btn btn-primary" type="submit">Actualizar informacion del Empleado</button>
+        <button class="btn btn-primary form-control" type="submit">Actualizar informacion del Empleado</button>
         </div>  
          @else
         <div class="mb-3">

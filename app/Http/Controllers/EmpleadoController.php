@@ -21,7 +21,8 @@ class EmpleadoController extends Controller
     public function index()
     {
         $empleados = Empleado::join('ciudads', 'ciudads.id', '=', 'empleados.id_ciudad')
-                    ->select("empleados.*","ciudads.nombre_ciudad")
+                    ->join('cargos', 'cargos.id', '=', 'empleados.id')
+                    ->select("empleados.*","ciudads.nombre_ciudad","cargos.nombre_c")
                     ->paginate(10);
         return view('empleado.index')->with('empleados', $empleados);
     }
@@ -41,7 +42,7 @@ class EmpleadoController extends Controller
         $paises = Pais::all();
         $ciudades = Ciudad::all();
         $cargos = Cargo::all();
-        return view('empleado.form')->with('cargos', $cargos)->with('ciudades', $ciudades)->with('jefes', $jefes)->with('paises', $paises);
+        return view('empleado.form')->with('cargos', $cargos)->with('jefes', $jefes)->with('paises', $paises);
     }
 
     /**
@@ -53,11 +54,11 @@ class EmpleadoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'identificacion' => 'required|max:15|integer',
+            'identificacion' => 'required|max:15',
             'nombre' => 'required|max:40',
             'apellido' => 'required|max:40',
             'direccion' => 'required|max:50',
-            'telefono' => 'required|max:12|integer',
+            'telefono' => 'required|max:12',
             'id_ciudad' => 'required'
         ]);
 
@@ -103,9 +104,15 @@ class EmpleadoController extends Controller
      */
     public function edit(Empleado $empleado)
     {
+        $jefes = Empleado::join('asignacion_cargos', 'asignacion_cargos.id_empleado', '=', 'empleados.id')
+        ->join('cargos', 'cargos.id', '=', 'asignacion_cargos.id_cargo')
+        ->select("empleados.*","cargos.nombre_c","asignacion_cargos.id_cargo")
+        ->where("asignacion_cargos.id_cargo", "!=", 1)
+        ->paginate(10);
+        $paises = Pais::all();
         $ciudades = Ciudad::all();
         $cargos = Cargo::all();
-        return view('empleado.form')->with('empleado', $empleado)->with('ciudades', $ciudades)->with('cargos', $cargos);
+        return view('empleado.form')->with('empleado', $empleado)->with('jefes', $jefes)->with('paises', $paises)->with('cargos', $cargos);
     }
 
     /**
@@ -118,11 +125,11 @@ class EmpleadoController extends Controller
     public function update(Request $request, Empleado $empleado)
     {
         $request->validate([
-            'identificacion' => 'required|max:15|integer',
+            'identificacion' => 'required|max:15',
             'nombre' => 'required|max:40',
             'apellido' => 'required|max:40',
             'direccion' => 'required|max:50',
-            'telefono' => 'required|max:12|integer',
+            'telefono' => 'required|max:12',
             'id_ciudad' => 'required'
         ]);
 

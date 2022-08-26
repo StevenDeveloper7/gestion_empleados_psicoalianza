@@ -20,7 +20,7 @@
 <div class="table-responsive">
     <table class="table table-bordered">
         <thead class="bg-primary text-white">
-            <th>ID</th>
+            <th>Codigo</th>
             <th>Nombre</th>
             <th>Descripcion</th>
             <th>Acciones</th>
